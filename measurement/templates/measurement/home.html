@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Body Measurement</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+
+background:#f5f7fb;
+
+}
+
+.container{
+
+max-width:1000px;
+margin:40px auto;
+background:white;
+padding:40px;
+border-radius:20px;
+box-shadow:0 10px 30px rgba(0,0,0,.1);
+
+}
+
+h1{
+
+text-align:center;
+margin-bottom:10px;
+font-size:36px;
+
+}
+
+.subtitle{
+
+text-align:center;
+color:#666;
+margin-bottom:35px;
+
+}
+
+.instructions{
+
+background:#eef5ff;
+padding:25px;
+border-radius:15px;
+margin-bottom:30px;
+
+}
+
+.instructions h2{
+
+margin-bottom:15px;
+
+}
+
+.instructions ul{
+
+padding-left:20px;
+
+}
+
+.instructions li{
+
+margin:12px 0;
+font-size:17px;
+
+}
+
+.upload-box{
+
+border:3px dashed #1e88e5;
+border-radius:15px;
+padding:40px;
+text-align:center;
+background:#fafcff;
+
+}
+
+.upload-box:hover{
+
+background:#f3f9ff;
+
+}
+
+input[type=file]{
+
+font-size:16px;
+margin-top:15px;
+
+}
+
+.preview{
+
+margin-top:30px;
+text-align:center;
+
+}
+
+.preview img{
+
+max-width:350px;
+max-height:500px;
+border-radius:15px;
+box-shadow:0 5px 15px rgba(0,0,0,.15);
+
+}
+
+button{
+
+margin-top:30px;
+width:100%;
+padding:18px;
+border:none;
+background:#1e88e5;
+color:white;
+font-size:20px;
+border-radius:12px;
+cursor:pointer;
+
+}
+
+button:hover{
+
+background:#1565c0;
+
+}
+
+.note{
+
+margin-top:20px;
+text-align:center;
+color:#888;
+font-size:14px;
+
+}
+#loader{
+
+display:none;
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background:white;
+
+z-index:9999;
+
+justify-content:center;
+
+align-items:center;
+
+flex-direction:column;
+
+}
+
+.spinner{
+
+width:80px;
+
+height:80px;
+
+border:8px solid #ddd;
+
+border-top:8px solid #1e88e5;
+
+border-radius:50%;
+
+animation:spin 1s linear infinite;
+
+margin-bottom:30px;
+
+}
+
+@keyframes spin{
+
+100%{
+
+transform:rotate(360deg);
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Body Measurement</h1>
+
+<p class="subtitle">
+Upload one full-body image to estimate body measurements.
+</p>
+
+<div class="instructions">
+
+<h2>📋 Image Guidelines</h2>
+
+<ul>
+
+<li>Stand upright facing the camera.</li>
+
+<li>Capture your complete body from head to feet.</li>
+
+<li>Keep the camera straight (avoid tilted photos).</li>
+
+<li>Hold a reference card (Credit Card / Debit Card / PAN Card) horizontally.</li>
+
+<li>Keep the card close to your body around waist or chest level.</li>
+
+<li>Keep your other arm stretched away from the body.</li>
+
+<li>Wear fitted clothing for better accuracy.</li>
+
+<li>Ensure good lighting with minimal shadows.</li>
+
+<li>Avoid mirrors and multiple people in the frame.</li>
+
+<li>Do not crop your feet or head.</li>
+
+</ul>
+
+</div>
+{% if success %}
+
+<div style="
+background:#d4edda;
+padding:15px;
+margin-bottom:25px;
+border-radius:10px;
+color:#155724;
+font-size:18px;
+text-align:center;
+">
+
+Image uploaded successfully.
+
+</div>
+
+{% endif %}
+
+<form method="POST" enctype="multipart/form-data" onsubmit="showLoader()">
+
+{% csrf_token %}
+
+<div class="upload-box">
+
+<h2>Select Image</h2>
+
+<br>
+
+<input
+type="file"
+name="image"
+id="imageInput"
+accept="image/*"
+required
+>
+
+<div class="preview">
+
+<img
+id="preview"
+style="display:none;"
+>
+
+</div>
+
+</div>
+
+<button type="submit">
+Measure Body
+</button>
+
+</form>
+<div id="loader">
+
+    <div class="spinner"></div>
+
+    <h2>
+
+        Measuring Body...
+
+    </h2>
+
+    <p>
+
+        Please wait.
+
+    </p>
+
+</div>
+
+<p class="note">
+Supported formats: JPG • JPEG • PNG
+</p>
+
+</div>
+
+<script>
+
+const input=document.getElementById("imageInput");
+
+const preview=document.getElementById("preview");
+
+input.onchange=function(){
+
+const file=this.files[0];
+
+if(!file) return;
+
+preview.src=URL.createObjectURL(file);
+
+preview.style.display="block";
+
+}
+
+function showLoader(){
+
+document.getElementById("loader").style.display="flex";
+
+}
+
+</script>
+
+</body>
+
+</html>
