@@ -21,29 +21,6 @@ Body Measure CV is a computer vision project for estimating human body measureme
 
 ---
 
-## Project Structure
-
-```
-Body_Measure_CV/
-│
-├── body_measurement/
-│   ├── measure/
-│   ├── models/
-│   ├── utils/
-│   ├── ...
-│
-├── website/
-│
-├── demo/
-│   └── demo.mp4
-│
-├── requirements.txt
-├── README.md
-└── LICENSE
-```
-
----
-
 ## Installation
 
 Clone the repository
@@ -77,14 +54,6 @@ Linux / macOS
 ```bash
 source venv/bin/activate
 ```
-
-Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
----
 
 ## Technologies Used
 
