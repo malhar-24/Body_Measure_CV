@@ -20,7 +20,7 @@ Body Measure CV is a computer vision project for estimating human body measureme
 ### Video
 
 ```
-[▶ Watch Demo](demo.mp4)
+[▶ Watch Demo]([demo.mp4](https://github.com/malhar-24/Body_Measure_CV/blob/8c01b672b5375042d6ef0cabc599f6022b129eef/demo.mp4))
 ```
 
 ---
